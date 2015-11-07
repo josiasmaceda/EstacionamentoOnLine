@@ -69,6 +69,7 @@ public class MovimentoController {
     
     public Movimento InfosFinalizar(Movimento movimento) {
         if (!(movimento==null)){
+            Configuracao configuracao = configuracaoDAO.buscar(Long.parseLong("1"));
             Movimento movimentoReturn = new Movimento();
             movimentoReturn.setId(movimento.getId());
             movimentoReturn.setMensalista(movimento.getMensalista());
@@ -80,19 +81,7 @@ public class MovimentoController {
             movimentoReturn.setDataHoraSaida(movimento.getDataHoraSaida());
             
             movimentoReturn.setDataHoraSaida(new Date());
-            if(movimentoReturn.getDataHoraEntrada() == null){
-                movimentoReturn.setDataHoraEntrada(new Date());
-            }
-            Calendar dataInicial = Calendar.getInstance();  
-            Calendar dataFinal = Calendar.getInstance();  
-            dataInicial.setTime(movimentoReturn.getDataHoraEntrada());  
-            dataFinal.setTime(movimentoReturn.getDataHoraSaida());  
-            long diferenca = System.currentTimeMillis()- dataInicial.getTimeInMillis();  
-            Double diferencaHoras = Math.ceil(diferenca / (60.00 * 60.00 * 1000.00));    // DIFERENCA EM HORAS         
-            if(diferencaHoras<1.00) diferencaHoras = 1.00;
-            movimentoReturn.setValorPago(0.00);
-            if(!(movimentoReturn.getValorHora()==null))
-               movimentoReturn.setValorPago(movimentoReturn.getValorHora() * diferencaHoras);
+            movimentoReturn.calculaValorHora(configuracao.getNumHorasDiaria());
 
             return movimentoReturn;
         } else {
