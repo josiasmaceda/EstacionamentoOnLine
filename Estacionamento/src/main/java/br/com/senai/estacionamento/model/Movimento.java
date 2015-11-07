@@ -10,9 +10,12 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,7 +45,20 @@ public class Movimento implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "datahora_saida", nullable = true)
     private Date dataHoraSaida;
+    
+    @Column(name = "valor_hora", nullable = true)
+    private Double valorHora;
+    
+    @Column(name = "valor_diaria", nullable = true)
+    private Double valorDiaria;
 
+    @Column(name = "valor_pago", nullable = true)
+    private Double valorPago;
+    
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="idmensalista")
+    private Mensalista mensalista;
+    
     public Long getId() {
         return id;
     }
@@ -86,6 +102,42 @@ public class Movimento implements Serializable{
         this.placa = placa;
         this.dataHoraEntrada = dataHoraEntrada;
     }
+
+    public Double getValorHora() {
+        return valorHora;
+    }
+
+    public void setValorHora(Double valorHora) {
+        this.valorHora = valorHora;
+    }
+
+    public Double getValorDiaria() {
+        return valorDiaria;
+    }
+
+    public void setValorDiaria(Double valorDiaria) {
+        this.valorDiaria = valorDiaria;
+    }
+
+    public Double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(Double valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public Mensalista getMensalista() {
+        return mensalista;
+    }
+
+    public void setMensalista(Mensalista mensalista) {
+        this.mensalista = mensalista;
+    }
+    
+    
+    
+    
 
     @Override
     public int hashCode() {

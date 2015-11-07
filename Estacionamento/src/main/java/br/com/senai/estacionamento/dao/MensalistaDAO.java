@@ -5,7 +5,7 @@
  */
 package br.com.senai.estacionamento.dao;
 
-import br.com.senai.estacionamento.model.Usuario;
+import br.com.senai.estacionamento.model.Mensalista;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,32 +16,31 @@ import javax.persistence.TypedQuery;
  *
  * @author Victor Matheus
  */
-
 @Stateless
-public class UsuarioDAO {
-    
+public class MensalistaDAO {
+
     @PersistenceContext(unitName = "estacionamentoPU")
     private EntityManager em;
 
-    public void insere(Usuario usuario) {
-        em.persist(usuario);
+    public void insere(Mensalista mensalista) {
+        em.persist(mensalista);
     }
     
     public void excluir(Long id) {
-        em.remove(em.getReference(Usuario.class, id));
+        em.remove(em.getReference(Mensalista.class, id));
     }
     
-    public Usuario buscar(Long id) {
-        return em.find(Usuario.class, id);
+    public Mensalista buscar(Long id) {
+        return em.find(Mensalista.class, id);
     }
     
-    public Usuario atualizar(Usuario usuario) {
-        return em.merge(usuario);
+    public Mensalista atualizar(Mensalista mensalista) {
+        return em.merge(mensalista);
     }
 
-    public List<Usuario> lista() {
-        TypedQuery<Usuario> q = em.createQuery("SELECT u "
-                + "FROM Usuario u ORDER BY u.nome", Usuario.class);
+    public List<Mensalista> lista() {
+        TypedQuery<Mensalista> q = em.createQuery("SELECT m "
+                + "FROM Mensalista m ORDER BY m.nome", Mensalista.class);
         return q.getResultList();
-    }    
+    }  
 }

@@ -5,8 +5,8 @@
  */
 package br.com.senai.estacionamento.rest;
 
-import br.com.senai.estacionamento.dao.ConfiguracaoDAO;
-import br.com.senai.estacionamento.model.Configuracao;
+import br.com.senai.estacionamento.dao.CarroDAO;
+import br.com.senai.estacionamento.model.Carro;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.Stateless;
@@ -28,51 +28,50 @@ import javax.ws.rs.core.Response;
  *
  * @author Victor Matheus
  */
-
 @Stateless
-@Path("configuracoes")
+@Path("carros")
 @Produces(MediaType.APPLICATION_JSON)
-public class ConfiguracaoResource {
+public class CarroResource {
     @Inject
-    private ConfiguracaoDAO configuracaoDAO;
+    private CarroDAO carroDAO;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Configuracao insert(Configuracao configuracao) {
-        configuracaoDAO.insere(configuracao);
-        return configuracao;
+    public Carro insert(Carro carro) {
+        carroDAO.insere(carro);
+        return carro;
     }
 
     @GET
-    public List<Configuracao> list() {
-        return configuracaoDAO.lista();
+    public List<Carro> list() {
+        return carroDAO.lista();
     }
 
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") Long id) {
-        configuracaoDAO.excluir(id);
+        carroDAO.excluir(id);
     }
     
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Configuracao update(@PathParam("id") Long id,
-            Configuracao configuracao) {
-        if (!Objects.equals(id, configuracao.getId())) {
+    public Carro update(@PathParam("id") Long id,
+            Carro carro) {
+        if (!Objects.equals(id, carro.getId())) {
             throw new WebApplicationException
                             (Response.Status.BAD_REQUEST);
         }
-        return configuracaoDAO.atualizar(configuracao);
+        return carroDAO.atualizar(carro);
     }
     
     @GET
     @Path("{id}")
     public Response find(@PathParam("id") Long id) {
-        final Configuracao configuracao = configuracaoDAO.buscar(id);
-        if (configuracao == null) {
+        final Carro carro = carroDAO.buscar(id);
+        if (carro == null) {
             throw new EntityNotFoundException();
         }
-        return Response.ok(configuracao).build();
+        return Response.ok(carro).build();
     }  
 }
