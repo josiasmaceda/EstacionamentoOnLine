@@ -5,8 +5,8 @@
  */
 package br.com.senai.estacionamento.rest;
 
-import br.com.senai.estacionamento.dao.ConfiguracaoDAO;
-import br.com.senai.estacionamento.model.Configuracao;
+import br.com.senai.estacionamento.dao.MensalistaDAO;
+import br.com.senai.estacionamento.model.Mensalista;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.Stateless;
@@ -28,51 +28,50 @@ import javax.ws.rs.core.Response;
  *
  * @author Victor Matheus
  */
-
 @Stateless
-@Path("configuracoes")
+@Path("mensalistas")
 @Produces(MediaType.APPLICATION_JSON)
-public class ConfiguracaoResource {
+public class MensalistaResource {
     @Inject
-    private ConfiguracaoDAO configuracaoDAO;
+    private MensalistaDAO mensalistaDAO;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Configuracao insert(Configuracao configuracao) {
-        configuracaoDAO.insere(configuracao);
-        return configuracao;
+    public Mensalista insert(Mensalista mensalista) {
+        mensalistaDAO.insere(mensalista);
+        return mensalista;
     }
 
     @GET
-    public List<Configuracao> list() {
-        return configuracaoDAO.lista();
+    public List<Mensalista> list() {
+        return mensalistaDAO.lista();
     }
 
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") Long id) {
-        configuracaoDAO.excluir(id);
+        mensalistaDAO.excluir(id);
     }
     
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Configuracao update(@PathParam("id") Long id,
-            Configuracao configuracao) {
-        if (!Objects.equals(id, configuracao.getId())) {
+    public Mensalista update(@PathParam("id") Long id,
+            Mensalista mensalista) {
+        if (!Objects.equals(id, mensalista.getId())) {
             throw new WebApplicationException
                             (Response.Status.BAD_REQUEST);
         }
-        return configuracaoDAO.atualizar(configuracao);
+        return mensalistaDAO.atualizar(mensalista);
     }
     
     @GET
     @Path("{id}")
     public Response find(@PathParam("id") Long id) {
-        final Configuracao configuracao = configuracaoDAO.buscar(id);
-        if (configuracao == null) {
+        final Mensalista mensalista = mensalistaDAO.buscar(id);
+        if (mensalista == null) {
             throw new EntityNotFoundException();
         }
-        return Response.ok(configuracao).build();
+        return Response.ok(mensalista).build();
     }  
 }
