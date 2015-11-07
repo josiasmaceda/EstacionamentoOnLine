@@ -7,6 +7,10 @@ function EstacionamentoController($scope, Movimento, Configuracao){
     $scope.limpar = function(){
         $scope.movimento = {};
     };
+    
+    $scope.$on('limpar-started', function(event, args) {
+        $scope.limpar();
+    });
  
     $scope.editar = function(movimento){
         $scope.movimento = angular.copy(movimento);
@@ -46,8 +50,8 @@ function EstacionamentoController($scope, Movimento, Configuracao){
                 });
     }
     
-    $scope.obterDadosParaFinalizar = function(){
-        $scope.movimento.finalizar()
+    $scope.obterDadosParaFinalizar = function(movimento){
+        movimento.finalizar(movimento)
                 .then(function(data){
                     $scope.movimento = data;
                 }, function(error){
