@@ -1,0 +1,27 @@
+<div class="container">
+    <h1>Estacionamento</h1>
+    <div class="row">
+        <div class="col-xs-12">
+            <br/>
+            Placa: <input type="text" ng-model="movimento.placa"/>
+            Data/Hora Entrada: <input type="text" ng-model="movimento.dataHoraEntrada"/>
+            <br/><br/>
+            <button class="btn btn-primary" ng-click="limpar()">Limpar</button>
+            <button class="btn btn-success" ng-click="gravar(movimento)">Gravar</button>
+
+
+            <br/>
+            <hr/>
+            <h1>Lista de Movimentos</h1>
+            <table class="table">
+                <tr ng-repeat="movimento in movimentos">
+                    <td>{{movimento.placa}}</td>
+                    <td>{{movimento.dataHoraEntrada | date:'dd/MM/yyyy'}}</td>
+                    <td><button class="btn btn-danger glyphicon glyphicon-trash" ng-click="deletar(movimento)"/> </td>
+                    <td><button class="btn btn-primary glyphicon glyphicon-pencil" ng-click="editar(movimento)"/></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
