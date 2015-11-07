@@ -3,16 +3,21 @@
 angular.module('app')
         .factory('Movimento',
             function(railsResourceFactory,API_URL){
-                var Contato = railsResourceFactory({
+                var Movimento = railsResourceFactory({
                    url:API_URL + 'movimentos' 
                 });
-                return Contato;
+                
+                Movimento.prototype.finalizar = function() {
+                    return this.$get(this.$url()+"/finalizar");
+                }
+                
+                return Movimento;
         }).factory('Configuracao',
             function(railsResourceFactory,API_URL){
-                var Contato = railsResourceFactory({
+                var Configuracao = railsResourceFactory({
                    url:API_URL + 'configuracoes' 
                 });
-                return Contato;
+                return Configuracao;
         });
 
 

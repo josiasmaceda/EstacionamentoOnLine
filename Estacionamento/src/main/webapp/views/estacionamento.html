@@ -13,12 +13,13 @@
                 <div>
                   <h4>Ticket {{movimento.id | number}}</h4>
                 </div>
-                <img style="width:200px; height: 200px;" src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/256/car-icon.png" alt="Veiculo">
+                <a href="#" data-toggle="modal" data-target="#frmFinalizar" ng-click="obterDadosParaFinalizar(movimento)"><img style="width:200px; height: 200px;" src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/256/car-icon.png" alt="Veiculo"></a>
                 <div>
-                  <p><strong>Placa</strong> {{movimento.placa}}</p>
+                  <p><strong>Placa</strong> {{movimento.placa|uppercase}}</p>
                   <p><strong>Entrada</strong> {{movimento.dataHoraEntrada | date:'hh:mm'}}</p>
                   <button class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#frmExclusao" ng-click="selecionar(movimento)"/>
                   <button class="btn btn-primary glyphicon glyphicon-pencil" data-toggle="modal" data-target="#frmVeiculo" ng-click="selecionar(movimento)"/>
+                  <button class="btn btn-success glyphicon glyphicon-ok" data-toggle="modal" data-target="#frmFinalizar" ng-click="obterDadosParaFinalizar(movimento)"/>
                 </div>
             </div>
         </div>
@@ -36,6 +37,37 @@
               </div>
               <div class="modal-body">
                 Placa: <input style="text-transform:uppercase" type="text" ng-model="movimento.placa" autofocus />
+                <br/><br/>
+                
+              </div>
+              <div class="modal-footer">
+                <!--<button class="btn btn-primary" ng-click="limpar()">Limpar</button>-->
+                <button class="btn btn-success" data-dismiss="modal" ng-click="gravar(movimento)">Confirmar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+        <!-- Modal -->
+        <div id="frmFinalizar" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Finalizar</h4>
+              </div>
+              <div class="modal-body">
+                  <form role="form" class="form">  
+                    Placa: <input class="form-control" disabled style="text-transform:uppercase" type="text" ng-model="movimento.placa" autofocus />
+                    Hora de Entrada: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.dataHoraEntrada | date:'hh:mm'"/>
+                    Hora de Saída: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.dataHoraSaida | date:'hh:mm'"/>
+                    Mensalista: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.mensalista.nome"/></br>
+                    Total: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.valorPago"/>
+                  </form>
                 <br/><br/>
                 
               </div>

@@ -46,6 +46,15 @@ function EstacionamentoController($scope, Movimento, Configuracao){
                 });
     }
     
+    $scope.obterDadosParaFinalizar = function(){
+        $scope.movimento.finalizar()
+                .then(function(data){
+                    $scope.movimento = data;
+                }, function(error){
+                    console.log("error listar -> "+error.data);
+                });
+    }
+    
     $scope.retornarConfiguracao = function(){
         Configuracao.query()
                 .then(function(data){
