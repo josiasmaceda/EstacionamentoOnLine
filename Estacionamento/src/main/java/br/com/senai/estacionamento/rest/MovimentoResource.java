@@ -85,10 +85,13 @@ public class MovimentoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Movimento InfosFinalizar(@PathParam("id") Long id) {
         final Movimento movimento = movimentoController.buscar(id);
-        if (!Objects.equals(id, movimento.getId())) {
-            throw new WebApplicationException
-                            (Response.Status.BAD_REQUEST);
+        if(!(movimento==null)){
+            if (!Objects.equals(id, movimento.getId())) {
+                throw new WebApplicationException
+                                (Response.Status.BAD_REQUEST);
+            }
         }
+        
         return movimentoController.InfosFinalizar(movimento);
     }
     

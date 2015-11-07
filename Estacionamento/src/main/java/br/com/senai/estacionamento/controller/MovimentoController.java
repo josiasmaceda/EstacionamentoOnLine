@@ -56,20 +56,39 @@ public class MovimentoController {
     }
     
     public Movimento atualizar(Movimento movimento) {
+        Configuracao configuracao = configuracaoDAO.buscar(Long.parseLong("1"));
+        movimento.setValorDiaria(configuracao.getValorDiaria());
+        movimento.setValorHora(configuracao.getValorHora());
+        Veiculo veiculo = veiculoDAO.getVeiculoByPlaca(movimento.getPlaca());
+        if(veiculo != null){
+            movimento.setMensalista(veiculo.getMensalista());
+        }
+        
         return movimentoDAO.atualizar(movimento);
     }
     
     public Movimento InfosFinalizar(Movimento movimento) {
-        movimento.setDataHoraSaida(new Date());
-        Calendar dataInicial = Calendar.getInstance();  
-        Calendar dataFinal = Calendar.getInstance();  
-        dataInicial.setTime(movimento.getDataHoraEntrada());  
-        dataFinal.setTime(movimento.getDataHoraSaida());  
-        long diferenca = System.currentTimeMillis()- dataInicial.getTimeInMillis();  
-        long diferencaHoras = diferenca / (60 * 60 * 1000);    // DIFERENCA EM HORAS         
+        if (!(movimento==null)){
+            movimento.setDataHoraSaida(new Date());
+            if(movimento.getDataHoraEntrada() == null){
+                movimento.setDataHoraEntrada(new Date());
+            }
+            Calendar dataInicial = Calendar.getInstance();  
+            Calendar dataFinal = Calendar.getInstance();  
+            dataInicial.setTime(movimento.getDataHoraEntrada());  
+            dataFinal.setTime(movimento.getDataHoraSaida());  
+            long diferenca = System.currentTimeMillis()- dataInicial.getTimeInMillis();  
+            Double diferencaHoras = Math.ceil(diferenca / (60.00 * 60.00 * 1000.00));    // DIFERENCA EM HORAS         
+            if(diferencaHoras<1.00) diferencaHoras = 1.00;
+            movimento.setValorPago(0.00);
+            if(!(movimento.getValorHora()==null))
+               movimento.setValorPago(movimento.getValorHora() * diferencaHoras);
+
+            return movimento;
+        } else {
+            return null;
+        }
         
-        movimento.setValorPago(movimento.getValorHora() * diferencaHoras);
-        return movimento;
     }
     
     public Movimento finalizar(Movimento movimento) {
