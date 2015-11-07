@@ -2,14 +2,14 @@
     
     <div class="row">
         <div class="col-xs-12">
-            <button type="button" class="btn btn-primary btn-block" style="text-align: right">Vagas dísponiveis <span class="badge">{{configuracoes.numVagasDisponiveis-movimentos.length}}</span> de <span class="badge">{{configuracoes.numVagasDisponiveis}}</span></button>
+            <button type="button" class="btn btn-primary btn-block" style="text-align: right">Vagas dísponiveis <span class="badge">{{configuracao.numVagasDisponiveis-movimentos.length}}</span> de <span class="badge">{{configuracao.numVagasDisponiveis}}</span></button>
             
             <div class="input-group">                
-                <input type="text" style="text-transform:uppercase" autofocus class="form-control" placeholder="Pesquisar pelo veiculo" aria-describedby="basic-addon1">
+                <input type="text" style="text-transform:uppercase" class="form-control" placeholder="Pesquisar pelo veiculo" ng-model="filterPlaca" aria-describedby="basic-addon1">
                 <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
             </div>
             
-            <div class="panel panel-default col-xs-4" style="margin: 12px; width: 250px; height: auto; padding-bottom:10px " ng-repeat="movimento in movimentos">
+            <div class="panel panel-default col-xs-4" ng-repeat="movimento in movimentos | filter:filterPlaca" style="margin: 12px; width: 250px; height: auto; padding-bottom:10px " >
                 <div>
                   <h4>Ticket {{movimento.id | number}}</h4>
                 </div>
@@ -17,6 +17,7 @@
                 <div>
                   <p><strong>Placa</strong> {{movimento.placa|uppercase}}</p>
                   <p><strong>Entrada</strong> {{movimento.dataHoraEntrada | date:'hh:mm'}}</p>
+                  <p><strong>Mensalista</strong> {{movimento.mensalista.nome | limitTo:15}}</p>
                   <button class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#frmExclusao" ng-click="selecionar(movimento)"/>
                   <button class="btn btn-primary glyphicon glyphicon-pencil" data-toggle="modal" data-target="#frmVeiculo" ng-click="selecionar(movimento)"/>
                   <button class="btn btn-success glyphicon glyphicon-ok" data-toggle="modal" data-target="#frmFinalizar" ng-click="obterDadosParaFinalizar(movimento)"/>
@@ -66,7 +67,7 @@
                     Hora de Entrada: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.dataHoraEntrada | date:'hh:mm'"/>
                     Hora de Saída: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.dataHoraSaida | date:'hh:mm'"/>
                     Mensalista: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.mensalista.nome"/></br>
-                    Total: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.valorPago"/>
+                    Total: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.valorPago | currency"/>
                   </form>
                 <br/><br/>
                 
@@ -94,7 +95,36 @@
               <div class="modal-footer">
                 <!--<button class="btn btn-primary" ng-click="limpar()">Limpar</button>-->
                 <button class="btn btn-danger" data-dismiss="modal" ng-click="deletar(movimento)">Excluir</button>
-                <button type="button"  ng-click="limpar()" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+        
+        <!-- Modal -->
+        <div id="frmConfiguracao" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Configuração</h4>
+              </div>
+              <div class="modal-body">
+                  <form role="form" class="form">  
+                     Número de vagas disponiveis:<input class="form-control" type="number" ng-model="configuracao.numVagasDisponiveis" autofocus />
+                     Valor por hora:<input class="form-control" type="number" ng-model="configuracao.valorHora"/>
+                     Valor da diária:<input class="form-control" type="number" ng-model="configuracao.valorDiaria"/>
+                     Números de horas para diária:<input class="form-control" type="number" ng-model="configuracao.numHorasDiaria"/>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                <!--<button class="btn btn-primary" ng-click="limpar()">Limpar</button>-->
+                <button class="btn btn-success" data-dismiss="modal" ng-click="salvarConfiguracao(configuracao)">Salvar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
               </div>
             </div>
 

@@ -2,7 +2,7 @@
 
 function EstacionamentoController($scope, Movimento, Configuracao){
     $scope.movimentos = [];
-    $scope.configuracoes = {};
+    $scope.configuracao = {};
     
     $scope.limpar = function(){
         $scope.movimento = {};
@@ -41,6 +41,25 @@ function EstacionamentoController($scope, Movimento, Configuracao){
         }
     };
     
+    $scope.salvarConfiguracao = function(configuracao){
+        if (configuracao.id){
+            configuracao.update(configuracao)
+                .then(function(){
+                    $scope.retornarConfiguracao();
+                }, function(error){
+                    console.log("error update -> "+error.data);
+                });               
+        }else{
+            new Configuracao(configuracao).create()
+                .then(function(){
+                    $scope.retornarConfiguracao();
+                }, function(error){
+                    console.log("error "+error.data);
+                    alert(error.data); 
+                }); 
+        }
+    };
+    
     $scope.listar = function(){
         Movimento.query()
                 .then(function(data){
@@ -62,7 +81,7 @@ function EstacionamentoController($scope, Movimento, Configuracao){
     $scope.retornarConfiguracao = function(){
         Configuracao.query()
                 .then(function(data){
-                    $scope.configuracoes = data[0];
+                    $scope.configuracao = data[0];
                 }, function(error){
                     console.log("error listar -> "+error.data);
                 });
