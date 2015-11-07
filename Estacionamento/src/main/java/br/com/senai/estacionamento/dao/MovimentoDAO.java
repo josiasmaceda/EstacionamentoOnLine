@@ -42,13 +42,13 @@ public class MovimentoDAO {
 
     public List<Movimento> lista() {
         TypedQuery<Movimento> q = em.createQuery("SELECT m "
-                + "FROM Movimento m ORDER BY m.dataHoraEntrada", Movimento.class);
+                + "FROM Movimento m where m.dataHoraSaida is null ORDER BY m.id", Movimento.class);
         return q.getResultList();
     }    
     
     public List<Movimento> listaPendentes() {
         TypedQuery<Movimento> q = em.createQuery("SELECT m "
-                + "FROM Movimento m where m.dataHoraSaida is null ORDER BY m.dataHoraEntrada", Movimento.class);
+                + "FROM Movimento m where coalesce(m.valorPago,0.00) = 0.00 ORDER BY m.id", Movimento.class);
         return q.getResultList();
     }        
 }

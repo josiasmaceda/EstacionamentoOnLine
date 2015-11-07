@@ -36,6 +36,10 @@ public class Configuracao implements Serializable{
     
     @Column(name = "num_horas_diaria", nullable = true)
     private int numHorasDiaria;
+    
+    @Column(name = "num_vagas_disponiveis", nullable = true)
+    private int numVagasDisponiveis;
+    
 
     public Long getId() {
         return id;
@@ -69,6 +73,16 @@ public class Configuracao implements Serializable{
         this.numHorasDiaria = numHorasDiaria;
     }
 
+    public int getNumVagasDisponiveis() {
+        return numVagasDisponiveis;
+    }
+
+    public void setNumVagasDisponiveis(int numVagasDisponiveis) {
+        this.numVagasDisponiveis = numVagasDisponiveis;
+    }
+
+    
+    
     public Configuracao() {
     }
 

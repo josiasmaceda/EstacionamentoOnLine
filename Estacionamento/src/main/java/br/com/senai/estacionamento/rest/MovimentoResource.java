@@ -21,7 +21,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import br.com.senai.estacionamento.dao.MovimentoDAO;
+import br.com.senai.estacionamento.controller.MovimentoController;
 import br.com.senai.estacionamento.model.Movimento;
 
 /**
@@ -35,24 +35,24 @@ import br.com.senai.estacionamento.model.Movimento;
 public class MovimentoResource {
 
     @Inject
-    private MovimentoDAO movimentoDAO;
+    private MovimentoController movimentoController;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Movimento insert(Movimento movimento) {
-        movimentoDAO.insere(movimento);
+        movimentoController.insere(movimento);
         return movimento;
     }
 
     @GET
     public List<Movimento> list() {
-        return movimentoDAO.lista();
+        return movimentoController.lista();
     }
 
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") Long id) {
-        movimentoDAO.excluir(id);
+        movimentoController.excluir(id);
     }
     
     @PUT
@@ -64,13 +64,39 @@ public class MovimentoResource {
             throw new WebApplicationException
                             (Response.Status.BAD_REQUEST);
         }
-        return movimentoDAO.atualizar(movimento);
+        return movimentoController.atualizar(movimento);
     }
+    
+    
+    @PUT
+    @Path("finalizar/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Movimento finalizar(@PathParam("id") Long id,
+            Movimento movimento) {
+        if (!Objects.equals(id, movimento.getId())) {
+            throw new WebApplicationException
+                            (Response.Status.BAD_REQUEST);
+        }
+        return movimentoController.finalizar(movimento);
+    }
+    
+    @GET
+    @Path("finalizar/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Movimento InfosFinalizar(@PathParam("id") Long id,
+            Movimento movimento) {
+        if (!Objects.equals(id, movimento.getId())) {
+            throw new WebApplicationException
+                            (Response.Status.BAD_REQUEST);
+        }
+        return movimentoController.InfosFinalizar(movimento);
+    }
+    
     
     @GET
     @Path("{id}")
     public Response find(@PathParam("id") Long id) {
-        final Movimento movimento = movimentoDAO.buscar(id);
+        final Movimento movimento = movimentoController.buscar(id);
         if (movimento == null) {
             throw new EntityNotFoundException();
         }
@@ -80,7 +106,7 @@ public class MovimentoResource {
     @GET
     @Path("pendentes/")
     public List<Movimento> findPendentes(@PathParam("id") Long id) {
-        final List<Movimento> movimentos = movimentoDAO.listaPendentes();
+        final List<Movimento> movimentos = movimentoController.listaPendentes();
         return movimentos;
     }      
 }
