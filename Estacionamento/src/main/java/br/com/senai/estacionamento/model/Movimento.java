@@ -6,6 +6,7 @@
 package br.com.senai.estacionamento.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -68,11 +69,11 @@ public class Movimento implements Serializable{
     }
 
     public String getPlaca() {
-        return placa;
+        return placa.toUpperCase();
     }
 
     public void setPlaca(String placa) {
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
     }
 
     public Date getDataHoraEntrada() {
@@ -136,7 +137,25 @@ public class Movimento implements Serializable{
     }
     
     
-    
+    public void calculaValorHora(int horasParaDiaria){
+        if(this.getDataHoraEntrada() == null){
+                this.setDataHoraEntrada(new Date());
+            }
+            Calendar dataInicial = Calendar.getInstance();  
+            Calendar dataFinal = Calendar.getInstance();  
+            dataInicial.setTime(this.getDataHoraEntrada());  
+            dataFinal.setTime(this.getDataHoraSaida());  
+            long diferenca = System.currentTimeMillis()- dataInicial.getTimeInMillis();  
+            Double diferencaHoras = Math.ceil(diferenca / (60.00 * 60.00 * 1000.00));    // DIFERENCA EM HORAS         
+            if(diferencaHoras<1.00) diferencaHoras = 1.00;
+            this.setValorPago(0.00);
+            if(diferencaHoras>horasParaDiaria){
+                this.setValorPago(this.getValorDiaria());
+            } else if(!(this.getValorHora()==null)){
+                this.setValorPago(this.getValorHora() * diferencaHoras);
+            }
+               
+    }
     
 
     @Override
