@@ -10,6 +10,10 @@ function EstacionamentoController($scope, Movimento){
     $scope.editar = function(movimento){
         $scope.movimento = angular.copy(movimento);
     };
+    
+    $scope.selecionar = function(movimento){
+        $scope.movimento = angular.copy(movimento);
+    };
 
     
     $scope.gravar = function(movimento){
