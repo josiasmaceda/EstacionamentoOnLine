@@ -76,4 +76,11 @@ public class MovimentoResource {
         }
         return Response.ok(movimento).build();
     }    
+    
+    @GET
+    @Path("pendentes/")
+    public List<Movimento> findPendentes(@PathParam("id") Long id) {
+        final List<Movimento> movimentos = movimentoDAO.listaPendentes();
+        return movimentos;
+    }      
 }

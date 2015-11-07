@@ -5,7 +5,7 @@
  */
 package br.com.senai.estacionamento.dao;
 
-import br.com.senai.estacionamento.model.Carro;
+import br.com.senai.estacionamento.model.Veiculo;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,30 +18,30 @@ import javax.persistence.TypedQuery;
  */
 
 @Stateless
-public class CarroDAO {
+public class VeiculoDAO {
     
     @PersistenceContext(unitName = "estacionamentoPU")
     private EntityManager em;
 
-    public void insere(Carro carro) {
-        em.persist(carro);
+    public void insere(Veiculo veiculo) {
+        em.persist(veiculo);
     }
     
     public void excluir(Long id) {
-        em.remove(em.getReference(Carro.class, id));
+        em.remove(em.getReference(Veiculo.class, id));
     }
     
-    public Carro buscar(Long id) {
-        return em.find(Carro.class, id);
+    public Veiculo buscar(Long id) {
+        return em.find(Veiculo.class, id);
     }
     
-    public Carro atualizar(Carro carro) {
-        return em.merge(carro);
+    public Veiculo atualizar(Veiculo veiculo) {
+        return em.merge(veiculo);
     }
 
-    public List<Carro> lista() {
-        TypedQuery<Carro> q = em.createQuery("SELECT c "
-                + "FROM Carro c ORDER BY c.placa", Carro.class);
+    public List<Veiculo> lista() {
+        TypedQuery<Veiculo> q = em.createQuery("SELECT c "
+                + "FROM Veiculo c ORDER BY c.placa", Veiculo.class);
         return q.getResultList();
     }  
 }

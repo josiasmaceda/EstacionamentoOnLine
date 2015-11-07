@@ -23,9 +23,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Victor Matheus
  */
 @Entity
-@Table(name = "CARRO")
+@Table(name = "VEICULO")
 @XmlRootElement
-public class Carro implements Serializable{
+public class Veiculo implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -33,6 +33,10 @@ public class Carro implements Serializable{
     
     @Column(name = "placa", nullable = false, length = 20)
     private String placa; 
+    
+    @Column(name = "tipo", nullable = false)
+    private TipoVeiculo tipoVeiculo; 
+    
     
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="idmensalista")
@@ -61,17 +65,26 @@ public class Carro implements Serializable{
     public void setMensalista(Mensalista mensalista) {
         this.mensalista = mensalista;
     }
+
+    public TipoVeiculo getTipoVeiculo() {
+        return tipoVeiculo;
+    }
+
+    public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
+        this.tipoVeiculo = tipoVeiculo;
+    }
     
-    public Carro(String placa) {
+        
+    public Veiculo(String placa) {
         this.placa = placa;
     }
 
-    public Carro(String placa, Mensalista mensalista) {
+    public Veiculo(String placa, Mensalista mensalista) {
         this.placa = placa;
         this.mensalista = mensalista;
     }
 
-    public Carro() {
+    public Veiculo() {
     }
     
     
@@ -92,7 +105,7 @@ public class Carro implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Carro other = (Carro) obj;
+        final Veiculo other = (Veiculo) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

@@ -73,5 +73,7 @@ public class MensalistaResource {
             throw new EntityNotFoundException();
         }
         return Response.ok(mensalista).build();
-    }  
+    }
+   
+    
 }

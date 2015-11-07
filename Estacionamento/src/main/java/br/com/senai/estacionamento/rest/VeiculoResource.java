@@ -5,8 +5,8 @@
  */
 package br.com.senai.estacionamento.rest;
 
-import br.com.senai.estacionamento.dao.CarroDAO;
-import br.com.senai.estacionamento.model.Carro;
+import br.com.senai.estacionamento.dao.VeiculoDAO;
+import br.com.senai.estacionamento.model.Veiculo;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.Stateless;
@@ -29,49 +29,49 @@ import javax.ws.rs.core.Response;
  * @author Victor Matheus
  */
 @Stateless
-@Path("carros")
+@Path("veiculos")
 @Produces(MediaType.APPLICATION_JSON)
-public class CarroResource {
+public class VeiculoResource {
     @Inject
-    private CarroDAO carroDAO;
+    private VeiculoDAO veiculoDAO;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Carro insert(Carro carro) {
-        carroDAO.insere(carro);
-        return carro;
+    public Veiculo insert(Veiculo veiculo) {
+        veiculoDAO.insere(veiculo);
+        return veiculo;
     }
 
     @GET
-    public List<Carro> list() {
-        return carroDAO.lista();
+    public List<Veiculo> list() {
+        return veiculoDAO.lista();
     }
 
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") Long id) {
-        carroDAO.excluir(id);
+        veiculoDAO.excluir(id);
     }
     
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Carro update(@PathParam("id") Long id,
-            Carro carro) {
-        if (!Objects.equals(id, carro.getId())) {
+    public Veiculo update(@PathParam("id") Long id,
+            Veiculo veiculo) {
+        if (!Objects.equals(id, veiculo.getId())) {
             throw new WebApplicationException
                             (Response.Status.BAD_REQUEST);
         }
-        return carroDAO.atualizar(carro);
+        return veiculoDAO.atualizar(veiculo);
     }
     
     @GET
     @Path("{id}")
     public Response find(@PathParam("id") Long id) {
-        final Carro carro = carroDAO.buscar(id);
-        if (carro == null) {
+        final Veiculo veiculo = veiculoDAO.buscar(id);
+        if (veiculo == null) {
             throw new EntityNotFoundException();
         }
-        return Response.ok(carro).build();
+        return Response.ok(veiculo).build();
     }  
 }

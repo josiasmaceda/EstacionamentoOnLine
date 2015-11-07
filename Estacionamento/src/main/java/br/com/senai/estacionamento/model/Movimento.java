@@ -39,7 +39,7 @@ public class Movimento implements Serializable{
     private String placa;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "datahora_entrada", nullable = true)
+    @Column(name = "datahora_entrada", nullable = false)
     private Date dataHoraEntrada;
     
     @Temporal(TemporalType.TIMESTAMP)

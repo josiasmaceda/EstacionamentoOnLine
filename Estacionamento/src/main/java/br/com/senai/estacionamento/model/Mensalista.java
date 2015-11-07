@@ -38,7 +38,7 @@ public class Mensalista implements Serializable {
     private String nome;    
 
     //@OneToMany(fetch=FetchType.EAGER,mappedBy="mensalista",cascade={CascadeType.PERSIST,CascadeType.REMOVE})
-    //private List<Carro> listaCarros = new ArrayList<Carro>();
+    //private List<Veiculo> listaVeiculos = new ArrayList<Veiculo>();
     
     //@OneToMany(fetch=FetchType.EAGER,mappedBy="mensalista",cascade={CascadeType.PERSIST,CascadeType.REMOVE})
     //private List<Movimento> listaMovimentos = new ArrayList<Movimento>();
@@ -59,14 +59,14 @@ public class Mensalista implements Serializable {
         this.nome = nome;
     }
     
-    //public List<Carro> getListaCarros() {
-    //        return listaCarros;
+    //public List<Veiculo> getListaVeiculos() {
+    //        return listaVeiculos;
     //}
 
 
-    //public void setListCarros(List<Carro> listaCarros) {
-    //        this.listaCarros = listaCarros;
-    //        for(Carro x : listaCarros){
+    //public void setListVeiculos(List<Veiculo> listaVeiculos) {
+    //        this.listaVeiculos = listaVeiculos;
+    //        for(Veiculo x : listaVeiculos){
     //                x.setMensalista(this);
     //        }
     //}    
