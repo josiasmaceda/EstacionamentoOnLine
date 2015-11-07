@@ -10,9 +10,6 @@ angular.module('app')
                 Movimento.prototype.finalizar = function(movimento) {
                     return Movimento.get("finalizar/"+movimento.id);
                 }
-                
-                
-                
                 return Movimento;
         }).factory('Configuracao',
             function(railsResourceFactory,API_URL){

@@ -19,7 +19,16 @@ function EstacionamentoController($scope, Movimento, Configuracao){
     $scope.selecionar = function(movimento){
         $scope.movimento = angular.copy(movimento);
     };
-
+    
+    $scope.finalizar = function(movimento){
+        movimento.dataHoraSaida = new Date();
+        movimento.update(movimento)
+            .then(function(){
+                $scope.listar();
+            }, function(error){
+                console.log("error update -> "+error.data);
+            });    
+    };
     
     $scope.gravar = function(movimento){
         if (movimento.id){
@@ -76,7 +85,7 @@ function EstacionamentoController($scope, Movimento, Configuracao){
                 }, function(error){
                     console.log("error listar -> "+error.data);
                 });
-    }
+    }    
     
     $scope.retornarConfiguracao = function(){
         Configuracao.query()
