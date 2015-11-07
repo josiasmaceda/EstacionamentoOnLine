@@ -68,11 +68,11 @@ public class Movimento implements Serializable{
     }
 
     public String getPlaca() {
-        return placa;
+        return placa.toUpperCase();
     }
 
     public void setPlaca(String placa) {
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
     }
 
     public Date getDataHoraEntrada() {
