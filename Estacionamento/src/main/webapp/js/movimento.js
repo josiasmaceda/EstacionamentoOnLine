@@ -1,7 +1,8 @@
 'use strict';
 
-function EstacionamentoController($scope, Movimento){
+function EstacionamentoController($scope, Movimento, Configuracao){
     $scope.movimentos = [];
+    $scope.configuracoes = {};
     
     $scope.limpar = function(){
         $scope.movimento = {};
@@ -45,6 +46,15 @@ function EstacionamentoController($scope, Movimento){
                 });
     }
     
+    $scope.retornarConfiguracao = function(){
+        Configuracao.query()
+                .then(function(data){
+                    $scope.configuracoes = data[0];
+                }, function(error){
+                    console.log("error listar -> "+error.data);
+                });
+    }
+    
     $scope.deletar = function(movimento){
         movimento.remove()
                 .then(function(){
@@ -57,6 +67,7 @@ function EstacionamentoController($scope, Movimento){
     
     $scope.limpar();
     $scope.listar();
+    $scope.retornarConfiguracao();
 }
 
 function EstacionamentoRoute($stateProvider){

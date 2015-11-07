@@ -2,33 +2,16 @@
     
     <div class="row">
         <div class="col-xs-12">
-            <!--<br/>
-            Placa: <input type="text" ng-model="movimento.placa"/>
-            Data/Hora Entrada: <input type="text" ng-model="movimento.dataHoraEntrada"/>
-            <br/><br/>
-            <button class="btn btn-primary" ng-click="limpar()">Limpar</button>
-            <button class="btn btn-success" ng-click="gravar(movimento)">Gravar</button>
-
-
-            <br/>
-            <hr/>-->
-            <button type="button" class="btn btn-primary btn-block" style="text-align: right">Vagas dísponiveis <span class="badge">70</span> de <span class="badge">100</span></button>
-            <!--<table class="table">
-                <tr ng-repeat="movimento in movimentos">
-                    <td>{{movimento.placa}}</td>
-                    <td>{{movimento.dataHoraEntrada | date:'hh:mm'}}</td>
-                    <td><button class="btn btn-danger glyphicon glyphicon-trash" ng-click="deletar(movimento)"/> </td>
-                    <td><button class="btn btn-primary glyphicon glyphicon-pencil" ng-click="editar(movimento)"/></td>
-                </tr>
-            </table>-->
+            <button type="button" class="btn btn-primary btn-block" style="text-align: right">Vagas dísponiveis <span class="badge">{{configuracoes.numVagasDisponiveis-movimentos.length}}</span> de <span class="badge">{{configuracoes.numVagasDisponiveis}}</span></button>
+            
             <div class="input-group">                
-                <input type="text" class="form-control" placeholder="Pesquisar pelo veiculo" aria-describedby="basic-addon1">
+                <input type="text" style="text-transform:uppercase" autofocus class="form-control" placeholder="Pesquisar pelo veiculo" aria-describedby="basic-addon1">
                 <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
             </div>
+            
             <div class="panel panel-default col-xs-4" style="margin: 12px; width: 250px; height: auto; padding-bottom:10px " ng-repeat="movimento in movimentos">
                 <div>
                   <h4>Ticket {{movimento.id | number}}</h4>
-                  <!--<h6 class="card-subtitle text-muted">Support card subtitle</h6>-->
                 </div>
                 <img style="width:200px; height: 200px;" src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/256/car-icon.png" alt="Veiculo">
                 <div>
@@ -36,11 +19,8 @@
                   <p><strong>Entrada</strong> {{movimento.dataHoraEntrada | date:'hh:mm'}}</p>
                   <button class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#frmExclusao" ng-click="selecionar(movimento)"/>
                   <button class="btn btn-primary glyphicon glyphicon-pencil" data-toggle="modal" data-target="#frmVeiculo" ng-click="selecionar(movimento)"/>
-                 
                 </div>
             </div>
-            
-            
         </div>
         
         
@@ -55,7 +35,7 @@
                 <h4 class="modal-title">Entrada de veiculo</h4>
               </div>
               <div class="modal-body">
-                Placa: <input type="text" ng-model="movimento.placa"/>
+                Placa: <input style="text-transform:uppercase" type="text" ng-model="movimento.placa" autofocus />
                 <br/><br/>
                 
               </div>
@@ -82,7 +62,7 @@
               <div class="modal-footer">
                 <!--<button class="btn btn-primary" ng-click="limpar()">Limpar</button>-->
                 <button class="btn btn-danger" data-dismiss="modal" ng-click="deletar(movimento)">Excluir</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button"  ng-click="limpar()" class="btn btn-default" data-dismiss="modal">Cancelar</button>
               </div>
             </div>
 
