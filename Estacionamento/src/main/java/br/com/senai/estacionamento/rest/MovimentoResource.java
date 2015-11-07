@@ -83,8 +83,8 @@ public class MovimentoResource {
     @GET
     @Path("finalizar/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Movimento InfosFinalizar(@PathParam("id") Long id,
-            Movimento movimento) {
+    public Movimento InfosFinalizar(@PathParam("id") Long id) {
+        final Movimento movimento = movimentoController.buscar(id);
         if (!Objects.equals(id, movimento.getId())) {
             throw new WebApplicationException
                             (Response.Status.BAD_REQUEST);

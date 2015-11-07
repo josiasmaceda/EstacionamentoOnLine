@@ -11,6 +11,7 @@ import br.com.senai.estacionamento.dao.VeiculoDAO;
 import br.com.senai.estacionamento.model.Configuracao;
 import br.com.senai.estacionamento.model.Movimento;
 import br.com.senai.estacionamento.model.Veiculo;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -39,7 +40,9 @@ public class MovimentoController {
         movimento.setValorDiaria(configuracao.getValorDiaria());
         movimento.setValorHora(configuracao.getValorHora());
         movimento.setDataHoraEntrada(new Date());
-        movimento.setMensalista(veiculo.getMensalista());
+        if(veiculo != null){
+            movimento.setMensalista(veiculo.getMensalista());
+        }
         
         movimentoDAO.insere(movimento);
     }
@@ -58,7 +61,14 @@ public class MovimentoController {
     
     public Movimento InfosFinalizar(Movimento movimento) {
         movimento.setDataHoraSaida(new Date());
-        movimento.setValorPago(100.00);
+        Calendar dataInicial = Calendar.getInstance();  
+        Calendar dataFinal = Calendar.getInstance();  
+        dataInicial.setTime(movimento.getDataHoraEntrada());  
+        dataFinal.setTime(movimento.getDataHoraSaida());  
+        long diferenca = System.currentTimeMillis()- dataInicial.getTimeInMillis();  
+        long diferencaHoras = diferenca / (60 * 60 * 1000);    // DIFERENCA EM HORAS         
+        
+        movimento.setValorPago(movimento.getValorHora() * diferencaHoras);
         return movimento;
     }
     

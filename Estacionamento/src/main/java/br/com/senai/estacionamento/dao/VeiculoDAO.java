@@ -48,9 +48,13 @@ public class VeiculoDAO {
     public Veiculo getVeiculoByPlaca(String placa) {
         String jpql = "SELECT c "
                     + "FROM Veiculo c where c.placa=:placa ORDER BY c.placa";
-            TypedQuery<Veiculo> q = em.createQuery(jpql, Veiculo.class);
-            q.setParameter("placa", placa);
+        TypedQuery<Veiculo> q = em.createQuery(jpql, Veiculo.class);
+        q.setParameter("placa", placa);
+        if(!(q.getResultList().isEmpty())){
             return q.getSingleResult();
+        } else {
+            return null;
+        }
     }
     
 }
