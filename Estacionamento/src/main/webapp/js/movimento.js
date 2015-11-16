@@ -2,6 +2,7 @@
 
 function EstacionamentoController($scope, Movimento, Configuracao){
     $scope.movimentos = [];
+    $scope.mensalista = {};
     $scope.configuracao = {};
     
     $scope.limpar = function(){
@@ -113,7 +114,7 @@ function EstacionamentoController($scope, Movimento, Configuracao){
 
 function EstacionamentoRoute($stateProvider){
     $stateProvider.state('estacionamento',{
-        url: '/estacionamento',
+        url: '/',
         templateUrl : 'views/estacionamento.html',
         controller: 'EstacionamentoController'
     });
