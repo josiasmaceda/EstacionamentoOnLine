@@ -1,0 +1,44 @@
+<!-- Modal -->
+<div id="frmMensalista" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Mensalista</h4>
+      </div>
+      <div class="modal-body">
+          <form role="form" class="form">  
+            Nome do Mensalista: <input class="form-control" style="text-transform:uppercase" type="text" ng-model="mensalista.nome"/>
+          </form>                
+      </div>              
+      <div class="modal-body">
+          <h4>Veículos do mensalista</h4>              
+
+          <form role="form" class="form">  
+            Placa: <input class="form-control" style="text-transform:uppercase" type="text" ng-model="mensalista.placa"/>
+          </form>
+          <br/>
+          <button class="btn btn-primary" ng-click="adicionarMensalista(mensalista)">Adicionar</button>
+
+        <br/>
+      </div>
+        <!--<button class="btn btn-primary" ng-click="limpar()">Limpar</button>-->
+        <table class="table">                    
+          <tr ng-repeat="mensalista in mensalistas">
+              <td>{{mensalista.placa}}</td>
+              <td>{{mensalista.tipoVeiculo}}</td>
+          </tr>
+      </table>
+      <div class="modal-footer">
+        <!--<button class="btn btn-primary" ng-click="limpar()">Limpar</button>-->
+        <button class="btn btn-success" data-dismiss="modal" ng-click="salvarMensalista(mensalista)">Confirmar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+        
+

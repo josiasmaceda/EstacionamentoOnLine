@@ -1,0 +1,32 @@
+<!-- Modal -->
+<div id="frmFinalizar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Finalizar</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form">  
+                    Placa: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.placa"/>
+                    Hora de Entrada: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.dataHoraEntrada | date:'hh:mm'"/>
+                    Hora de Saída: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.dataHoraSaida | date
+                        :'hh:mm'"/>
+                    Mensalista: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.mensalista.nome"/></br>
+                    Total: <input disabled class="form-control" style="text-transform:uppercase" type="text" ng-model="movimento.valorPago | currency"/>
+                </form>
+                <br/><br/>
+
+            </div>
+            <div class="modal-footer">
+                <!--<button class="btn btn-primary" ng-click="limpar()">Limpar</button>-->
+                <button class="btn btn-success" data-dismiss="modal" ng-click="finalizar(movimento)">Confirmar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
