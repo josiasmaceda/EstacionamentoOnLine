@@ -2,6 +2,7 @@
 
 function EstacionamentoController($scope, Movimento, Configuracao){
     $scope.movimentos = [];
+    $scope.mensalistas = [];
     $scope.mensalista = {};
     $scope.configuracao = {};
     
@@ -77,7 +78,7 @@ function EstacionamentoController($scope, Movimento, Configuracao){
                 }, function(error){
                     console.log("error listar -> "+error.data);
                 });
-    }
+    };
     
     $scope.obterDadosParaFinalizar = function(movimento){
         movimento.finalizar(movimento)
@@ -86,7 +87,7 @@ function EstacionamentoController($scope, Movimento, Configuracao){
                 }, function(error){
                     console.log("error listar -> "+error.data);
                 });
-    }    
+    };    
     
     $scope.retornarConfiguracao = function(){
         Configuracao.query()
@@ -95,7 +96,7 @@ function EstacionamentoController($scope, Movimento, Configuracao){
                 }, function(error){
                     console.log("error listar -> "+error.data);
                 });
-    }
+    };
     
     $scope.deletar = function(movimento){
         movimento.remove()
@@ -104,8 +105,11 @@ function EstacionamentoController($scope, Movimento, Configuracao){
                 }, function(error){
                     console.log("error listar -> "+error.data);
                 });
-    }
+    };
     
+    $scope.adicionarMensalista = function(mensalista){
+        $scope.mensalistas.push(angular.copy(mensalista));
+    };
     
     $scope.limpar();
     $scope.listar();
