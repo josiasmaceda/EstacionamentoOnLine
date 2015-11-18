@@ -1,10 +1,9 @@
 'use strict';
 
-function EstacionamentoController($scope, Movimento, Configuracao){
+var EstacionamentoController = function ($scope, Movimento, Configuracao){
     $scope.movimentos = [];
     $scope.mensalistas = [];
     $scope.mensalista = {};
-    $scope.configuracao = {};
     
     $scope.limpar = function(){
         $scope.movimento = {};
@@ -52,25 +51,6 @@ function EstacionamentoController($scope, Movimento, Configuracao){
         }
     };
     
-    $scope.salvarConfiguracao = function(configuracao){
-        if (configuracao.id){
-            configuracao.update(configuracao)
-                .then(function(){
-                    $scope.retornarConfiguracao();
-                }, function(error){
-                    console.log("error update -> "+error.data);
-                });               
-        }else{
-            new Configuracao(configuracao).create()
-                .then(function(){
-                    $scope.retornarConfiguracao();
-                }, function(error){
-                    console.log("error "+error.data);
-                    alert(error.data); 
-                }); 
-        }
-    };
-    
     $scope.listar = function(){
         Movimento.query()
                 .then(function(data){
@@ -89,14 +69,6 @@ function EstacionamentoController($scope, Movimento, Configuracao){
                 });
     };    
     
-    $scope.retornarConfiguracao = function(){
-        Configuracao.query()
-                .then(function(data){
-                    $scope.configuracao = data[0];
-                }, function(error){
-                    console.log("error listar -> "+error.data);
-                });
-    };
     
     $scope.deletar = function(movimento){
         movimento.remove()
@@ -113,10 +85,10 @@ function EstacionamentoController($scope, Movimento, Configuracao){
     
     $scope.limpar();
     $scope.listar();
-    $scope.retornarConfiguracao();
+    
 }
 
-function EstacionamentoRoute($stateProvider){
+var EstacionamentoRoute = function($stateProvider){
     $stateProvider.state('estacionamento',{
         url: '/',
         templateUrl : 'views/estacionamento.html',

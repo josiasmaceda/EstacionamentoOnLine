@@ -2,7 +2,7 @@
     
     <div class="row">
         <div class="col-xs-12">
-            <button type="button" class="btn btn-primary btn-block" style="text-align: right">Vagas dísponiveis <span class="badge">{{configuracao.numVagasDisponiveis-movimentos.length}}</span> de <span class="badge">{{configuracao.numVagasDisponiveis}}</span></button>
+            <button ng-controller="ConfiguracaoController" type="button" class="btn btn-primary btn-block" style="text-align: right">Vagas dísponiveis <span class="badge">{{configuracao.numVagasDisponiveis-movimentos.length}}</span> de <span class="badge">{{configuracao.numVagasDisponiveis}}</span></button>
             
             <div class="input-group">                
                 <input type="text" style="text-transform:uppercase" class="form-control" placeholder="Pesquisar pelo veiculo" ng-model="filterPlaca" aria-describedby="basic-addon1">
@@ -31,8 +31,8 @@
         <div ng-include="'views/entradaDeVeiculo.html'"></div>
         <div ng-include="'views/finalizar.html'"></div>
         <div ng-include="'views/exclusao.html'"></div>
-        <div ng-include="'views/configuracao.html'"></div>
-        <div ng-include="'views/mensalista.html'"></div>
+        <div ng-controller="ConfiguracaoController" ng-include="'views/configuracao.html'"></div>
+        <div ng-controller="MensalistaController" ng-include="'views/mensalista.html'"></div>
         
 
     </div>
