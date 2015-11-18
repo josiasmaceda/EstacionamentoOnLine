@@ -10,31 +10,31 @@
       </div>
       <div class="modal-body">
           <form role="form" class="form">  
-            Nome do Mensalista: <input class="form-control" style="text-transform:uppercase" type="text" ng-model="mensalista.nome"/>
-          </form>                
-      </div>              
-      <div class="modal-body">
-          <h4>Veículos do mensalista</h4>              
-
-          <form role="form" class="form">  
-            Placa: <input class="form-control" style="text-transform:uppercase" type="text" ng-model="mensalista.placa"/>
+            Nome do Mensalista: <input class="form-control" style="text-transform:uppercase" type="text" ng-model="veiculo.mensalista.nome"/>
+            Placa: <input class="form-control" style="text-transform:uppercase" type="text" ng-model="veiculo.placa"/>
           </form>
-          <br/>
-          <button class="btn btn-primary" ng-click="adicionarMensalista(mensalista)">Adicionar</button>
-
+          
         <br/>
       </div>
         <!--<button class="btn btn-primary" ng-click="limpar()">Limpar</button>-->
-        <table class="table">                    
-          <tr ng-repeat="mensalista in mensalistas">
-              <td>{{mensalista.placa}}</td>
-              <td>{{mensalista.tipoVeiculo}}</td>
-          </tr>
-      </table>
+      <div class="row">
+        <div class="col-xs-12">
+            <table class="table">                    
+              <tr ng-repeat="veiculo in veiculos">
+                  
+                  <td>{{veiculo.placa | uppercase}}</td>
+                  <td>{{veiculo.tipoVeiculo.descricao}}</td>
+                  <td>{{veiculo.mensalista.nome | uppercase}}</td>
+                  <td><button class="btn btn-danger glyphicon glyphicon-trash" ng-click="deletar(veiculo)"/> </td>
+                  <td><button class="btn btn-primary glyphicon glyphicon-pencil" ng-click="editar(veiculo)"/></td>
+              </tr>
+            </table>
+        </div>
+      </div>
       <div class="modal-footer">
-        <!--<button class="btn btn-primary" ng-click="limpar()">Limpar</button>-->
-        <button class="btn btn-success" data-dismiss="modal" ng-click="salvarMensalista(mensalista)">Confirmar</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button class="btn btn-success" ng-click="gravar(veiculo)">salvar</button>
+        <button class="btn btn-primary" ng-click="limpar()">Limpar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="limpar()">fechar</button>
       </div>
     </div>
 

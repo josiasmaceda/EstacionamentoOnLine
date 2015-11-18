@@ -17,7 +17,7 @@
                 -->
                 <div>
                   <p><strong>Placa</strong> {{movimento.placa|uppercase}}</p>
-                  <p><strong>Entrada</strong> {{movimento.dataHoraEntrada | date:'hh:mm'}}</p>
+                  <p><strong>Entrada</strong> {{movimento.dataHoraEntrada | date:'HH:mm'}}</p>
                   <p><strong>Mensalista</strong> {{movimento.mensalista.nome | limitTo:15}}</p>
                   <button class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#frmExclusao" ng-click="selecionar(movimento)"/>
                   <button class="btn btn-primary glyphicon glyphicon-pencil" data-toggle="modal" data-target="#frmVeiculo" ng-click="selecionar(movimento)"/>

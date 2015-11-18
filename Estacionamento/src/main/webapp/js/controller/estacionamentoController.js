@@ -1,6 +1,6 @@
 'use strict';
 
-var EstacionamentoController = function ($scope, Movimento, Configuracao){
+var EstacionamentoController = function ($scope, Movimento){
     $scope.movimentos = [];
     $scope.mensalistas = [];
     $scope.mensalista = {};

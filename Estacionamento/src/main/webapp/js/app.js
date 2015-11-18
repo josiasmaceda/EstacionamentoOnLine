@@ -14,5 +14,9 @@ angular.module('app', [
             $rootScope.startLimpar = function () {
                 $rootScope.$broadcast('limpar-started');
             };
+            
+            $rootScope.startLimparMensalista = function () {
+                $rootScope.$broadcast('limpar-started-mensalista');
+            };
         });
 

@@ -7,6 +7,7 @@ package br.com.senai.estacionamento.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,7 +39,7 @@ public class Veiculo implements Serializable{
     private TipoVeiculo tipoVeiculo; 
     
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name="idmensalista")
     private Mensalista mensalista;
 
